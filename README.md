@@ -1,4 +1,5 @@
 # myward
+This is a project that helps Educational Sponsors to monitor the performance of their Wards
 
 ## Project setup
 ```
@@ -27,5 +28,3 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
-This is a project that helps Educational Sponsors to monitor the performance of their Wards
