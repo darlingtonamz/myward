@@ -1,0 +1,53 @@
+{
+    "users": {
+        "schools": {
+            "name":     "string",
+            "category": "primary, secondary, tertiary"
+        },
+        "levels": {
+            "pos":       "number",
+            "name":      "string",
+            "school_id": "string"
+        },
+        "students": {
+            "name": "string",
+            "current_enrollment_id": "string",
+            "courses": {
+                "name":         "string",
+                "level_id":     "string",
+                "semester":     "string",
+                "unit":         "number",
+                "total_weight": "number",
+                "used_weight":  "number",
+                "lectures": {
+                    "name":         "string",
+                    "description":  "string",
+                    "started_at":   "datetime",
+                    "ended_at":     "datetime"
+                },
+                "assessments": {
+                    "questions": {
+                        "question": "string",
+                        "answer":   "string"
+                    },
+                    "score":            "number",
+                    "weight":           "number",
+                    "highest_score":    "number",
+                    "actual_score":     "number"
+                },
+                "studies": {
+                    "category":     "string or lecture_id",
+                    "lecture_id":   "string",
+                    "summary":      "string",
+                    "started_at":   "string",
+                    "ended_at":     "string"
+                }
+            },
+            "enrollments": {
+                "student_id":   "string",
+                "level_id":     "string",
+                "semester":     "number"
+            }
+        }
+    }
+}
