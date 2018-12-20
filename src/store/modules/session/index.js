@@ -3,7 +3,8 @@ const state = {
   authenticated: !!localStorage.getItem('access_token'),
   accessToken: localStorage.getItem('access_token'),
   idToken: localStorage.getItem('id_token'),
-  expiresAt: localStorage.getItem('expires_at')
+  expiresAt: localStorage.getItem('expires_at'),
+  profile: {},
 }
 
 const getters = {
@@ -13,15 +14,18 @@ const getters = {
 }
 
 const mutations = {
-  setSession(state, authData) {
+  setSession(state, authData, profile) {
+    if (profile)
+      state.profile = profile
+
     state.authenticated = true
     state.accessToken = authData.accessToken
     state.idToken = authData.idToken
     state.expiresAt = authData.expiresIn * 1000 + new Date().getTime()
 
-    localStorage.setItem('access_token', state.accessToken)
-    localStorage.setItem('id_token', state.idToken)
-    localStorage.setItem('expires_at', state.expiresAt)
+    // localStorage.setItem('access_token', state.accessToken)
+    // localStorage.setItem('id_token', state.idToken)
+    // localStorage.setItem('expires_at', state.expiresAt)
   },
   logout(state) {
     state.authenticated = false
@@ -43,7 +47,7 @@ const actions = {
   },
   handleAuthentication({ commit }) {
     auth.handleAuthentication().then(result => {
-      commit('setSession', result)
+      commit('setSession', result, profile)
     }).catch(err => {
       // console.log(err)
       return err
@@ -51,7 +55,7 @@ const actions = {
   },
   renewSession({ commit }) {
     auth.renewSession().then(result => {
-      commit('setSession', result)
+      commit('setSession', result, profile)
     }).catch(err => {
       // console.log(err)
       return err

@@ -2,9 +2,9 @@ import actions from './actions'
 import getters from './getters'
 import mutations from './mutations'
 
-import lecturesModule from './modules/lectures'
-import assessmentsModule from './modules/assessments'
-import studiesModule from './modules/studies'
+import lecturesModule from './lectures'
+import assessmentsModule from './assessments'
+import studiesModule from './studies'
 
 const state = {
   courses: [],

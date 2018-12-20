@@ -2,8 +2,8 @@ import actions from './actions'
 import getters from './getters'
 import mutations from './mutations'
 
-import coursesModule from './modules/courses'
-import enrollmentsModule from './modules/enrollments'
+import coursesModule from './courses'
+import enrollmentsModule from './enrollments'
 
 const state = {
   students: [],
