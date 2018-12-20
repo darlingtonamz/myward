@@ -1,5 +1,6 @@
 .DS_Store
 node_modules
+functions/node_modules
 /dist
 
 # local env files
@@ -19,3 +20,5 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+
+functions/myward-amz-firebase-adminsdk-6roa5-2435ff008d.json
