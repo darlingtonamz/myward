@@ -1,5 +1,3 @@
-const functions = require('firebase-functions');
-
 const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
 const firebaseAdmin = require('firebase-admin');
@@ -45,7 +43,7 @@ firebaseAdmin.initializeApp({
 });
 
 // GET object containing Firebase custom token
-app.get('/auth/firebase', jwtCheck, (req, res) => {
+app.get('/firebase', jwtCheck, (req, res) => {
   // Create UID from authenticated Auth0 user
   const uid = req.user.sub;
   // Mint token using Firebase Admin SDK

@@ -1,12 +1,12 @@
 <template>
   <div class="authenticating">
-    Authenticating...
+    Authenticating... {{authMessage}}
   </div>
 </template>
 
 <script>
 import router from '@/router'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'Auth',
@@ -15,9 +15,17 @@ export default {
 
   data () {
     this.handleAuthentication()
-    router.push({ name: 'Home' })
+      .then((result) => {
+        router.push({ name: 'Home' })
+      }).catch((err) => {/* show failure */});
 
     return {}
+  },
+  computed: {
+    ...mapState({
+      authMessage: state => state.session.authMessage,
+      test: state => state.test,
+    })
   }
 }
 </script>

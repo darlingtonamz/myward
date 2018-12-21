@@ -10,6 +10,9 @@ import { firebaseMutations } from 'vuexfire'
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+	state: {
+		test: "test data"
+	},
 	modules: {
 		session,
 		levels: levelsModule,

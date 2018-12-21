@@ -1,6 +1,7 @@
 import auth from '@/api/auth'
 const state = {
   authenticated: !!localStorage.getItem('access_token'),
+  authMessage: !!localStorage.getItem('access_token') ? 'Authenticated' : 'Not Authenticated',
   accessToken: localStorage.getItem('access_token'),
   idToken: localStorage.getItem('id_token'),
   expiresAt: localStorage.getItem('expires_at'),
@@ -35,7 +36,10 @@ const mutations = {
     localStorage.removeItem('access_token')
     localStorage.removeItem('id_token')
     localStorage.removeItem('expires_at')
-  }
+  },
+  setAuthMessage(state, message) {
+    state.authMessage = message
+  },
 }
 
 const actions = {
@@ -46,24 +50,31 @@ const actions = {
     commit('logout')
   },
   handleAuthentication({ commit }) {
-    auth.handleAuthentication().then(result => {
-      commit('setSession', result, profile)
-    }).catch(err => {
-      // console.log(err)
-      return err
+    return new Promise((resolve, reject) => {
+      auth.handleAuthentication().then((result, profile) => {
+        commit('setSession', result, profile)
+        resolve()
+      }).catch(err => {
+        console.log('Session login failed: ', err)
+        return reject(err)
+      })
     })
   },
-  renewSession({ commit }) {
-    auth.renewSession().then(result => {
-      commit('setSession', result, profile)
-    }).catch(err => {
-      // console.log(err)
-      return err
-    })
-  }
+  setAuthMessage({ commit }, message) {
+    commit('setAuthMessage', message)
+  },
+  // renewSession({ commit }) {
+  //   auth.renewSession().then(result => {
+  //     commit('setSession', result, profile)
+  //   }).catch(err => {
+  //     // console.log(err)
+  //     return err
+  //   })
+  // }
 }
 
 export default {
+  // namespaced: true,
   state,
   getters,
   actions,
