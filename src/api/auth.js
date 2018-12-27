@@ -20,27 +20,10 @@ const login = () => {
 
 const handleAuthentication = () => {
   return auth0FirebaseAuth.handleAuthentication()
-  // return new Promise((resolve, reject) => {
-  //   _auth0.parseHash((err, authResult) => {
-  //     if (err) return reject(err)
-
-  //     const profile = _getUserInfo(authResult)
-  //     resolve(authResult, profile)
-  //   })
-  // })
 }
 
-// const renewSession = () => {
-//   return new Promise((resolve, reject) => {
-//     _auth0.checkSession({}, (err, authResult) => {
-//       if (authResult && authResult.accessToken && authResult.idToken) {
-//         resolve(authResult)
-//       } else if (err) {
-//         return reject(err)
-//       }
-//     })
+const getUserId = () => {
+  return auth0FirebaseAuth.getUserId()
+}
 
-//   })
-// }
-
-export default { login, handleAuthentication }
+export default { login, handleAuthentication, getUserId }

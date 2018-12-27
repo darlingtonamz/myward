@@ -27,6 +27,12 @@ class auth0FirebaseAuth {
     return localStorage.getItem('id_token')
   }
 
+  getUserId() {
+    const profile = JSON.parse(localStorage.profile)
+    // console.log(profile, profile.sub, localStorage.profile)
+    return profile ? profile.sub : null
+  }
+
   login () {
     this._auth0.authorize()
   }
@@ -55,10 +61,10 @@ class auth0FirebaseAuth {
 
         return profile
       } else if (err) {
-        console.warn(`Error retrieving profile: ${err.error}`);
+        console.warn(`Error retrieving profile: ${err.error}`)
         return err
       }
-    });
+    })
   }
   
   _setSession (authResult, profile) {
@@ -72,7 +78,7 @@ class auth0FirebaseAuth {
   _getFirebaseToken() {
     // Prompt for login if no access token
     if (!this._getAccessToken()) {
-      this.login();
+      this.login()
     }
     
     console.log('AcsTkn', this._getAccessToken(), environment)
@@ -87,7 +93,7 @@ class auth0FirebaseAuth {
         return this._firebaseAuth(result.data)
       }).catch((err) => {
         console.error(`An error occurred fetching Firebase token: ${err.message}`)
-      });
+      })
 
   }
 
@@ -95,18 +101,18 @@ class auth0FirebaseAuth {
     // const self = this
     this.fbAuth.signInWithCustomToken(tokenObj.firebaseToken)
       .then(res => {
-        // this.loggedInFirebase = true;
+        // this.loggedInFirebase = true
         // Schedule token renewal
         this._updateUserData ()
-        this.scheduleFirebaseRenewal();
-        console.log('Successfully authenticated with Firebase!', res);
+        this.scheduleFirebaseRenewal()
+        console.log('Successfully authenticated with Firebase!', res)
       })
       .catch(err => {
-        const errorCode = err.code;
-        const errorMessage = err.message;
-        console.error(`${errorCode} Could not log into Firebase: ${errorMessage}`);
-        this.loggedInFirebase = false;
-      });
+        const errorCode = err.code
+        const errorMessage = err.message
+        console.error(`${errorCode} Could not log into Firebase: ${errorMessage}`)
+        this.loggedInFirebase = false
+      })
   }
 
   _updateUserData () {
@@ -122,7 +128,7 @@ class auth0FirebaseAuth {
       }
     }
     return usersRef.set(data, {merge: true})
-  };
+  }
 
   scheduleFirebaseRenewal() {
     /*
@@ -130,41 +136,41 @@ class auth0FirebaseAuth {
     // and unsubscribe, then return (don't schedule renewal)
     if (!this.loggedInFirebase) {
       if (this.firebaseSub) {
-        this.firebaseSub.unsubscribe();
+        this.firebaseSub.unsubscribe()
       }
-      return;
+      return
     }
     // Unsubscribe from previous expiration observable
-    this.unscheduleFirebaseRenewal();
+    this.unscheduleFirebaseRenewal()
     // Create and subscribe to expiration observable
     // Custom Firebase tokens minted by Firebase
     // expire after 3600 seconds (1 hour)
-    const expiresAt = new Date().getTime() + (3600 * 1000);
+    const expiresAt = new Date().getTime() + (3600 * 1000)
     const expiresIn$ = Observable.of(expiresAt)
       .pipe(
         mergeMap(
           expires => {
-            const now = Date.now();
+            const now = Date.now()
             // Use timer to track delay until expiration
             // to run the refresh at the proper time
-            return Observable.timer(Math.max(1, expires - now));
+            return Observable.timer(Math.max(1, expires - now))
           }
         )
-      );
+      )
 
     this.refreshFirebaseSub = expiresIn$
       .subscribe(
         () => {
-          console.log('Firebase token expired; fetching a new one');
-          this._getFirebaseToken();
+          console.log('Firebase token expired fetching a new one')
+          this._getFirebaseToken()
         }
-      );
+      )
     */
   }
 
   unscheduleFirebaseRenewal() {
     if (this.refreshFirebaseSub) {
-      this.refreshFirebaseSub.unsubscribe();
+      this.refreshFirebaseSub.unsubscribe()
     }
   }
 }

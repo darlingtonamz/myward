@@ -6,7 +6,7 @@ import coursesModule from './courses'
 import enrollmentsModule from './enrollments'
 
 const state = {
-  students: [],
+  collection: [],
 }
 
 export default {

@@ -1,11 +1,12 @@
 import auth from '@/api/auth'
 const state = {
   authenticated: !!localStorage.getItem('access_token'),
-  authMessage: !!localStorage.getItem('access_token') ? 'Authenticated' : 'Not Authenticated',
+  authMessage: localStorage.getItem('access_token') ? 'Authenticated' : 'Not Authenticated',
   accessToken: localStorage.getItem('access_token'),
   idToken: localStorage.getItem('id_token'),
   expiresAt: localStorage.getItem('expires_at'),
-  profile: {},
+  profile: JSON.parse(localStorage.profile),
+  userId: auth.getUserId()
 }
 
 const getters = {
@@ -16,7 +17,7 @@ const getters = {
 
 const mutations = {
   setSession(state, authData, profile) {
-    if (profile)
+    if (JSON.stringigy(profile).length > 2)
       state.profile = profile
 
     state.authenticated = true
@@ -63,14 +64,6 @@ const actions = {
   setAuthMessage({ commit }, message) {
     commit('setAuthMessage', message)
   },
-  // renewSession({ commit }) {
-  //   auth.renewSession().then(result => {
-  //     commit('setSession', result, profile)
-  //   }).catch(err => {
-  //     // console.log(err)
-  //     return err
-  //   })
-  // }
 }
 
 export default {

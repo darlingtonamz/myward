@@ -12,8 +12,9 @@ const actions = {
   }),
   initLevels: firebaseAction(({ bindFirebaseRef }, userId) => {
     const loggedInUser = state.session
-    bindFirebaseRef('levels', db.collection('levels'))
-      .where('user_id', '==', userId)
+    bindFirebaseRef('levels', db.collection('levels')
+      .where('user_id', '==', userId))
+      
   }),
 }
 

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import levelsModule from './modules/levels/index'
 import schoolsModule from './modules/schools/index'
-import studentsModule from './modules/students/index'
+import wardsModule from './modules/wards/index'
 
 import session from './modules/session'
 import { firebaseMutations } from 'vuexfire'
@@ -17,7 +17,7 @@ export default new Vuex.Store({
 		session,
 		levels: levelsModule,
 		schools: schoolsModule,
-		students: studentsModule,
+		wards: wardsModule,
 	},
 	mutations: firebaseMutations,
 	// actions: {
