@@ -1,8 +1,11 @@
+import defaultCRUD from '@/api/defaultCRUD'
+
 const actions = {
-  delete({ commit }, id) {
-    // -> dispatch('students/delete')
-    // commit('delete', id)
-  },
+  ...defaultCRUD("wards"),
+  // delete({ commit }, id) {
+  //   // -> dispatch('students/delete')
+  //   // commit('delete', id)
+  // },
 }
 
 export default actions
