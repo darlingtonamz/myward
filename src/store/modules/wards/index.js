@@ -6,7 +6,9 @@ import coursesModule from './courses'
 import enrollmentsModule from './enrollments'
 
 const state = {
-  collection: [],
+  collection: []
+  // savedState ? 
+  // savedState.wards.collection : {},
 }
 
 export default {

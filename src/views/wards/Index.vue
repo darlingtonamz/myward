@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <div>Wards</div>
     <div>
       <div>
@@ -14,6 +15,12 @@
         <span><button @click="deleteWard(ward.id)">X</button></span>
       </div>
     </div> 
+    <div>
+    <v-btn color="success">Success</v-btn>
+    <v-btn color="error">Error</v-btn>
+    <v-btn color="warning">Warning</v-btn>
+    <v-btn color="info">Info</v-btn>
+  </div>
   </div>
 </template>
 
@@ -41,6 +48,8 @@ export default {
     ...mapGetters({
       wards: 'wards/wards'
     }),
+  },
+  mounted() {
   },
   created() {
     this.$store.dispatch('wards/index')

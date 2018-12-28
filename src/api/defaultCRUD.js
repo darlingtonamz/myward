@@ -10,10 +10,10 @@ const defaultCRUD = (model) => {
         .where('user_id', '==', userId)
       bindFirebaseRef('collection', ref)      
     }),
-    show({ commit }, id){
+    show: firebaseAction(({ bindFirebaseRef }, id) => {
       const ref = db.collection(model).doc(id)
       bindFirebaseRef('current', ref)
-    },
+    }),
     create({rootState}, data){
       const ref = db.collection(model).doc()
       const userId = rootState.session.userId
@@ -30,6 +30,9 @@ const defaultCRUD = (model) => {
     delete({ }, id) {
       const ref = db.collection(model).doc(id)
       return ref.delete()
+    },
+    setCurrent({commit}, data){
+      commit('setCurrent', data)
     },
   }
 }

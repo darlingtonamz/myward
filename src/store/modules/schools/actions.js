@@ -4,14 +4,14 @@ import defaultCRUD from '@/api/defaultCRUD'
 
 const actions = {
   ...defaultCRUD("schools"),
-  index: firebaseAction(({ bindFirebaseRef, rootState }) => {
-    // console.log('UserId Changed', userId)
-    const userId = rootState.session.userId
-    const ref = db.collection('schools')
-      .where('user_id', '==', userId)
-    bindFirebaseRef('collection', ref)
-      .then(res => console.log('Res: ', res))     
-  }),
+  // index: firebaseAction(({ bindFirebaseRef, rootState }) => {
+  //   // console.log('UserId Changed', userId)
+  //   const userId = rootState.session.userId
+  //   const ref = db.collection('schools')
+  //     .where('user_id', '==', userId)
+  //   bindFirebaseRef('collection', ref)
+  //     .then(res => console.log('Res: ', res))     
+  // }),
   // show({ commit }, id){
   //   const ref = db.collection('schools').doc(id)
   //   bindFirebaseRef('currentSchool', ref)

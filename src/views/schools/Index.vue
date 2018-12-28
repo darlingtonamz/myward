@@ -1,17 +1,29 @@
 <template>
   <div>
-    <div>Schools</div>
     <div>
-      <div>
-        <form @submit.prevent="submit">
-          <input type="text" v-model="newSchool.name" required>
-          <button type="submit">Submit</button>
+      <div v-if="isRootPath">
+        <v-toolbar color="elevation-0">
+          <v-spacer></v-spacer>
+            <v-btn color="whitefade elevation-0" @click="goto('/schools/new')">ADD SCHOOL</v-btn>
+        </v-toolbar>
+        <v-list color="transparent">
+          <v-list-tile
+            v-for="(school, pos) in schools" :key="pos"
+            avatar
+            @click="goto('/schools/' + school.id, school)">
+            <v-list-tile-avatar color="teal" >
+              A
+            </v-list-tile-avatar>
 
-        </form>
+            <v-list-tile-content>
+              <v-list-tile-title>{{ school.name }}</v-list-tile-title>
+              <v-list-tile-sub-title>{{ school.description || 'No description' }}</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
       </div>
-      <div v-for="(school, pos) in schools" :key="pos">
-        <span>{{school.name}}</span>
-        <span><button @click="deleteSchool(school.id)">X</button></span>
+      <div v-if="!isRootPath">
+        <router-view></router-view>
       </div>
     </div> 
   </div>
@@ -19,17 +31,21 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import NewSchool from './New'
 export default {
+  components: {NewSchool},
   data: () => ({
-    text: "dfdjhf",
-    newSchool: {
-    }
   }),
   methods: {
     ...mapActions({
       create: 'schools/create',
-      delete: 'schools/delete'
+      delete: 'schools/delete',
+      setCurrentSchool: 'schools/setCurrent'
     }),
+    goto(path, school){
+      this.setCurrentSchool(school)
+      this.$router.push(path)
+    },
     submit() {
       this.create(this.newSchool)
     },
@@ -41,6 +57,9 @@ export default {
     ...mapGetters({
       schools: 'schools/schools'
     }),
+    isRootPath() {
+      return this.$route.path.endsWith('/schools')
+    }
   },
   created() {
     this.$store.dispatch('schools/index')
@@ -48,6 +67,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.v-list {
+  background: transparent !important;
+}
+.v-list__tile--link {
+  background: rgba(255,255,255,.1) !important;
+}
 </style>
