@@ -13,49 +13,16 @@
         <button type="submit">Submit</button>
 
       </form> -->
-      <v-card color="" class="">
-        <v-toolbar color="elevation-0">
-          <v-btn flat icon color="" @click="goto('/schools')">
-            <v-icon>arrow_back</v-icon>
-          </v-btn>
-          <span>Levels</span>
-          <v-spacer></v-spacer>          
-          <v-btn color="transparent elevation-0">
-            ADD LEVEL
-          </v-btn>
-          <v-menu
-          v-model="showMenu"
-          absolute
-          offset-y
-          style="max-width: 600px">
-            <v-btn flat icon color=""
-            slot="activator">
-              <v-icon>more_vert</v-icon>
-            </v-btn>
-
-            <v-list>
-              <v-list-tile
-              v-for="(item, index) in menuItems"
-              :key="index"
-              @click="">
-                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-          </v-menu>
-        </v-toolbar>
-        <div>
-        </div>
-        <v-container>
-          list
-        </v-container>
-      </v-card>
+      <LevelsIndex :school="school"/>
     </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import LevelsIndex from './levels/Index'
 export default {
+  components: {LevelsIndex},
   data: () => ({
     showMenu: false,
     menuItems: [

@@ -1,7 +1,7 @@
 import { db } from '@/api/firebase'
 import { firebaseAction } from 'vuexfire'
 
-const defaultCRUD = (model) => {
+const defaultCRUD = (model, config) => {
   return {
     index: firebaseAction(({ bindFirebaseRef, rootState }) => {
       // console.log('Unchanged')

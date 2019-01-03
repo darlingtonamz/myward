@@ -3,7 +3,7 @@ const getters = {
     // -> getters['schools/get']
   },
   schools (state) {
-    // -> getters['schools/school']
+    // -> getters['schools/schools']
     return state.collection
   },
   current (state) {
